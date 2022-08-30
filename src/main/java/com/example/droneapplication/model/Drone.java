@@ -15,16 +15,20 @@ public class Drone {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "serial_number")
     private String serialNumber;
 
     private String model;
 
+    @Column(name = "weight_limit")
     private Double weightLimit;
 
+    @Column(name = "battery_capacity")
     private Double batteryCapacity;
 
     private String state;
 
+    @Column(name = "is_active")
     private String isActive;
 
     @OneToMany(mappedBy="drone")

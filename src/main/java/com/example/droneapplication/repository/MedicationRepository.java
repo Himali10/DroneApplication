@@ -7,9 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface MedicationRepository extends JpaRepository<Medication,Long> {
-    @Query(value = "SELECT m.weight_limit FROM Medication m WHERE m.drone_id=:droneId",nativeQuery = true )
-    List<Double> findAllById(@Param("droneId")long droneId);
+    @Query(value = "SELECT d.weightLimit FROM Drone d INNER JOIN Medication m ON d.id=m.drone.id WHERE m.drone.id=:droneId")
+    List<Double> findAllById(@Param("droneId")int droneId);
 }
