@@ -3,6 +3,8 @@ package com.example.droneapplication.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -17,11 +19,16 @@ public class Drone {
 
     private String model;
 
-    private Double weight;
+    private Double weightLimit;
 
     private Double batteryCapacity;
 
     private String state;
+
+    private String isActive;
+
+    @OneToMany(mappedBy="drone")
+    private Set<Medication> items;
 
 }
 

@@ -19,4 +19,11 @@ public class Medication {
     private String code;
 
     private String image;
+
+    //private String isActive;
+
+    @ManyToOne
+    @JoinColumn(name="drone_id", nullable=false)
+    private Drone drone;
+
 }
