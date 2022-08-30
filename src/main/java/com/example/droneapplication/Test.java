@@ -2,7 +2,7 @@ package com.example.droneapplication;
 
 public class Test {
 
-    public static void main(String args[]){
+    /*public static void main(String args[]){
         //String st=new StringBuilder("hi").reverse().toString();
        // System.out.println(st);
         String str="(()";
@@ -21,5 +21,5 @@ public class Test {
         remain=a-b;
         System.out.println(remain);
 
-    }
+    }*/
 }
