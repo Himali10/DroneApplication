@@ -15,10 +15,12 @@ import java.util.Optional;
 public interface DroneRepository extends JpaRepository<Drone,Long> {
     @Modifying
     @Transactional
-    @Query(value="UPDATE Drone  SET state=:state WHERE id=:droneId")
-    void update(@Param("droneId")int droneId,@Param("state")String state);
-    @Query(value="SELECT d.weightLimit FROM Drone d WHERE d.id=:droneId and d.state='LOADING'")
+    @Query(value="UPDATE Drone  SET state=:state ,isActive=:isActive WHERE id=:droneId")
+    void update(@Param("droneId")int droneId,@Param("state")String state,@Param("isActive")String isActive);
+    @Query(value="SELECT d.weightLimit FROM Drone d WHERE d.id=:droneId and d.batteryCapacity>=25.0")
     Double findByDroneId(@Param("droneId")int droneId);
     @Query(value="SELECT d.serialNumber FROM Drone d WHERE d.state='IDLE'")
     List<String> findByState();
+    @Query(value = "SELECT d.batteryCapacity FROM Drone d WHERE d.id=:droneId")
+    Double checkBatteryLevel(@Param("droneId")int droneId);
 }

@@ -26,12 +26,12 @@ public class MedicationController {
     @ResponseBody
     @PostMapping("/loading")
     public String loadingMedications(@RequestBody Medication medication){
-        //int medicationLoadedId=medicationService.loadMedications(medication);
-        int droneId=medication.getDrone().getId();
+        int medicationLoadedId=medicationService.loadMedications(medication);
+       /* int droneId=medication.getDrone().getId();
         Medication savedMedication=medicationRepository.save(medication);
-
-        if(savedMedication.getIsActive().equalsIgnoreCase("true")){
-            droneRepository.update(droneId,"LOADING");
+*/
+        if(medicationLoadedId>0){
+            //droneRepository.update(droneId,"LOADING");
             return "Medication is loaded Successfully .";
         }else{
             return "Medication is not loaded, exceed weight limit";

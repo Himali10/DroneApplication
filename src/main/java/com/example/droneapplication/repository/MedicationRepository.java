@@ -18,5 +18,7 @@ public interface MedicationRepository extends JpaRepository<Medication,Long> {
     @Query(value="UPDATE Medication  SET isActive=:isActive WHERE id=:droneId")
     void update(@Param("droneId")int droneId,@Param("isActive")String isActive);
     @Query(value = "SELECT m.name FROM Medication m WHERE m.drone.id=:droneId and m.isActive=:status")
-    List<String> findAllByDroneIdAndStatus(int droneId, String status);
+    List<String> findAllByDroneIdAndStatus(@Param("droneId")int droneId, @Param("status")String status);
+    @Query(value = "SELECT m.id FROM Medication m WHERE  m.isActive=:status")
+    int findAllByStatus(@Param("status")String status);
 }

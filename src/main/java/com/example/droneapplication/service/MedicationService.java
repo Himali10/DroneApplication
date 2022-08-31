@@ -7,4 +7,5 @@ import java.util.List;
 public interface MedicationService {
     List<String> checkLoadedMedications(int id);
 
+    int loadMedications(Medication medication);
 }

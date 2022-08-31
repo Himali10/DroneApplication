@@ -22,6 +22,14 @@ public class MedicationServiceImpl implements MedicationService {
     @Override
     public List<String> checkLoadedMedications(int droneId) {
         logger.info("checkLoadedMedications-->{}", droneId);
+        return medicationRepository.findAllByDroneIdAndStatus(droneId, "false");
+
+    }
+
+    @Override
+    public int loadMedications(Medication medication) {
+        int droneId = medication.getDrone().getId();
+        logger.info("loadMedications-->{}", droneId);
         Double totalWeight = 0.0;
         List<Double> weightList = medicationRepository.findAllById(droneId);
         Double weightLimit = droneRepository.findByDroneId(droneId);
@@ -31,13 +39,28 @@ public class MedicationServiceImpl implements MedicationService {
                 totalWeight = totalWeight + medWeight;
 
                 if (totalWeight <= weightLimit) {
+                    medicationRepository.save(medication);
                     medicationRepository.update(droneId, "false");
-                    droneRepository.update(droneId, "LOADED");
-                }
+                    droneRepository.update(droneId, "LOADING", "true");
+                }/*else if(totalWeight == weightLimit){
+                    medicationRepository.save(medication);
+                    medicationRepository.update(droneId, "false");
+                    droneRepository.update(droneId, "LOADED","false");
+                }*/
+            }
+
+        } else {
+            if (medication.getWeight() <= weightLimit) {
+                medicationRepository.save(medication);
+                medicationRepository.update(droneId, "false");
+                droneRepository.update(droneId, "LOADING", "true");
+            /*}else if(medication.getWeight() == weightLimit){
+                medicationRepository.update(droneId, "false");
+                droneRepository.update(droneId, "LOADED","false");
+            }*/
             }
 
         }
-        return medicationRepository.findAllByDroneIdAndStatus(droneId,"false");
-
+        return medicationRepository.findAllByStatus("false");
     }
 }

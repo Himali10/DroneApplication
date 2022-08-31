@@ -41,4 +41,11 @@ private DroneRepository droneRepository;
         //return droneService.checkAvailableDrones();
         return droneRepository.findByState();
     }
+
+    @ResponseBody
+    @GetMapping("/check/battery/{id}")
+    public Double checkBattery(@PathVariable int id){
+        return droneRepository.checkBatteryLevel(id);
+
+    }
 }
