@@ -12,6 +12,12 @@ import java.util.Optional;
 
 
 public class DroneServiceImpl implements DroneService {
+    @Autowired
+    private DroneRepository droneRepository;
 
-
+    @Override
+    public List<String> checkAvailableDrones() {
+        //return droneRepository.findByState();
+        return null;
+    }
 }

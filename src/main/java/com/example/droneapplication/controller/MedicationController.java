@@ -44,6 +44,5 @@ public class MedicationController {
     public List<String> checkMedications(@PathVariable int id){
         return medicationService.checkLoadedMedications(id);
 
-
     }
 }
