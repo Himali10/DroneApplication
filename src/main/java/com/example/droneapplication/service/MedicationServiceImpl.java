@@ -28,13 +28,13 @@ public class MedicationServiceImpl implements MedicationService {
         logger.info("-----------2",droneId);
         List<Double> medicationList=medicationRepository.findAllById(droneId);
         Double weightLimit=droneRepository.findByDroneId(droneId);
-        logger.info("-----------3",weightLimit);
+        System.out.println("-----------3"+weightLimit);
         if (!medicationList.isEmpty()) {
             for (int i = 0; i < medicationList.size(); i++) {
                 Double loadedWeight = medicationList.get(i);
                 totalWeight = totalWeight+loadedWeight;
             }
-            if ((totalWeight < weightLimit) && ((totalWeight + medication.getWeight()) < weightLimit)) {
+            if ((totalWeight <= weightLimit) && ((totalWeight + medication.getWeight()) <= weightLimit)) {
                 Medication medicationLoaded=medicationRepository.save(medication);
                 droneRepository.update(droneId);
                 returnId=medicationLoaded.getId();
@@ -52,5 +52,12 @@ public class MedicationServiceImpl implements MedicationService {
         }
 
 
+    }
+
+    @Override
+    public void updateDrone(Medication medication) {
+        int droneId=medication.getDrone().getId();
+        Medication medicationLoaded=medicationRepository.save(medication);
+        droneRepository.update(droneId);
     }
 }

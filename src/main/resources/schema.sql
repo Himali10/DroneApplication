@@ -14,6 +14,7 @@ CREATE TABLE MEDICATION(
                            NAME VARCHAR(255) NOT NULL ,
                            WEIGHT FLOAT NOT NULL ,
                            CODE VARCHAR(255) NOT NULL ,
-                           IMAGE VARCHAR NOT NULL
+                           IMAGE VARCHAR NOT NULL,
+                           IS_ACTIVE VARCHAR(255) NOT NULL
 
 );

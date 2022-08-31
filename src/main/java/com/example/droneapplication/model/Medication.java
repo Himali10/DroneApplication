@@ -20,7 +20,7 @@ public class Medication {
 
     private String image;
 
-    //private String isActive;
+    private String isActive;
 
     @ManyToOne
     @JoinColumn(name="drone_id", nullable=false)

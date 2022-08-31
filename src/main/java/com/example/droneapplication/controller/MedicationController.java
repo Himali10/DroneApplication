@@ -2,6 +2,7 @@ package com.example.droneapplication.controller;
 
 import com.example.droneapplication.model.Medication;
 import com.example.droneapplication.repository.MedicationRepository;
+import com.example.droneapplication.repository.DroneRepository;
 import com.example.droneapplication.service.MedicationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,13 +18,34 @@ public class MedicationController {
 
     @Autowired
     private MedicationRepository medicationRepository;
+    @Autowired
+    private DroneRepository droneRepository;
 
     @ResponseBody
     @PostMapping("/loading")
     public String loadingMedications(@RequestBody Medication medication){
-        int medicationLoadedId=medicationService.loadMedications(medication);
-        System.out.println("-----------ff"+medicationLoadedId);
-        if(medicationLoadedId>0){
+        //int medicationLoadedId=medicationService.loadMedications(medication);
+        int droneId=medication.getDrone().getId();
+        Medication savedMedication=medicationRepository.save(medication);
+
+        if(savedMedication.getIsActive().equalsIgnoreCase("true")){
+            droneRepository.update(droneId);
+            return "Medication is loaded Successfully .";
+        }else{
+            return "Medication is not loaded, exceed weight limit";
+        }
+
+    }
+
+    @ResponseBody
+    @PostMapping("/loading")
+    public String loadingMedications(@RequestBody Medication medication){
+        //int medicationLoadedId=medicationService.loadMedications(medication);
+        int droneId=medication.getDrone().getId();
+        Medication savedMedication=medicationRepository.save(medication);
+
+        if(savedMedication.getIsActive().equalsIgnoreCase("true")){
+            droneRepository.update(droneId);
             return "Medication is loaded Successfully .";
         }else{
             return "Medication is not loaded, exceed weight limit";
