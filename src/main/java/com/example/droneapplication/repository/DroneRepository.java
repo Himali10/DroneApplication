@@ -9,7 +9,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface DroneRepository extends JpaRepository<Drone,Long> {
@@ -23,4 +25,7 @@ public interface DroneRepository extends JpaRepository<Drone,Long> {
     List<String> findByState();
     @Query(value = "SELECT d.batteryCapacity FROM Drone d WHERE d.id=:droneId")
     Double checkBatteryLevel(@Param("droneId")int droneId);
+
+    @Query(value = "SELECT d.id,d.batteryCapacity FROM Drone d")
+    Map<Integer, Double> trackBatteryLevel();
 }
