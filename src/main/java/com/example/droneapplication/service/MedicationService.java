@@ -2,8 +2,9 @@ package com.example.droneapplication.service;
 
 import com.example.droneapplication.model.Medication;
 
-public interface MedicationService {
-    int loadMedications(Medication medication);
+import java.util.List;
 
-    void updateDrone(Medication medication);
+public interface MedicationService {
+    List<String> checkLoadedMedications(int id);
+
 }

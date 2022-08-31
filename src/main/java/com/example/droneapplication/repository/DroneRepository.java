@@ -15,8 +15,8 @@ import java.util.Optional;
 public interface DroneRepository extends JpaRepository<Drone,Long> {
     @Modifying
     @Transactional
-    @Query(value="UPDATE Drone  SET state='LOADING' WHERE id=:droneId")
-    void update(@Param("droneId")int droneId);
-    @Query(value="SELECT d.weightLimit FROM Drone d WHERE d.id=:droneId")
+    @Query(value="UPDATE Drone  SET state=:state WHERE id=:droneId")
+    void update(@Param("droneId")int droneId,@Param("state")String state);
+    @Query(value="SELECT d.weightLimit FROM Drone d WHERE d.id=:droneId and d.state='LOADING'")
     Double findByDroneId(@Param("droneId")int droneId);
 }

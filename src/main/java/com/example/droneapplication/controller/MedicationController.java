@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/medication")
 public class MedicationController {
@@ -29,7 +31,7 @@ public class MedicationController {
         Medication savedMedication=medicationRepository.save(medication);
 
         if(savedMedication.getIsActive().equalsIgnoreCase("true")){
-            droneRepository.update(droneId);
+            droneRepository.update(droneId,"LOADING");
             return "Medication is loaded Successfully .";
         }else{
             return "Medication is not loaded, exceed weight limit";
@@ -38,18 +40,10 @@ public class MedicationController {
     }
 
     @ResponseBody
-    @PostMapping("/loading")
-    public String loadingMedications(@RequestBody Medication medication){
-        //int medicationLoadedId=medicationService.loadMedications(medication);
-        int droneId=medication.getDrone().getId();
-        Medication savedMedication=medicationRepository.save(medication);
+    @GetMapping("/check/loadedMedications/{id}")
+    public List<String> checkMedications(@PathVariable int id){
+        return medicationService.checkLoadedMedications(id);
 
-        if(savedMedication.getIsActive().equalsIgnoreCase("true")){
-            droneRepository.update(droneId);
-            return "Medication is loaded Successfully .";
-        }else{
-            return "Medication is not loaded, exceed weight limit";
-        }
 
     }
 }
